@@ -1,0 +1,81 @@
+import circle as c
+#importing circle.py
+import rectangle as r
+#importing rectangle.py
+
+# displays menu and prompts user for choice until they choose to quit
+while True:
+    print("\tMenu")
+    print("1. Area of Circle ")
+    print("2. Circumference of Circle ")
+    print("3. Area of Rectangle ")
+    print("4. Perimeter of Rectangle ")
+    print("5. Quit ")
+    
+    choice = int(input("Enter your choice: "))
+    
+    # Nested while loops and input validation for each choice
+    # calculates area of circle with radius input by user
+    if choice == 1:
+        while True:
+            radius = float(input("Enter the radius of the circle: "))
+            
+            if radius < 0:
+                print("Radius cannot be negative. Please enter a non-negative value.")
+                continue
+            else:
+                area = c.get_circle_area(radius)
+                print(f"The area of the circle is: {area}")
+    
+  
+    # calculates circumference of circle with radius input by user
+    elif choice == 2:
+        while True:
+            radius = float(input("Enter the radius of the circle: "))
+            
+            if radius < 0:
+                print("Radius cannot be negative. Please enter a non-negative value.")
+                continue
+            else:
+                circumference = c.get_circle_circumference(radius)
+                print(f"The circumference of the circle is: {circumference}")
+   
+   
+    # calculates area of rectangle with length and width input by user
+    elif choice == 3:
+        while True:
+            length = float(input("Enter the length of the rectangle: "))
+            width = float(input("Enter the width of the rectangle: "))
+            
+            if length < 0 or width < 0:
+                print("Length and width cannot be negative. Please enter non-negative values.")
+                continue
+            else:
+                area = r.get_rectangle_area(length, width)
+                print(f"The area of the rectangle is: {area}")
+    
+   
+    # calculates perimeter of rectangle with length and width input by user
+    elif choice == 4:
+        while True:
+            length = float(input("Enter the length of the rectangle: "))
+            width = float(input("Enter the width of the rectangle: "))
+        
+            if length < 0 or width < 0:
+                print("Length and width cannot be negative. Please enter non-negative values.")
+                continue
+       
+            else:
+              perimeter = r.get_rectangle_perimeter(length, width)
+              print(f"The perimeter of the rectangle is: {perimeter}")
+    
+    # exits the program
+    elif choice == 5:
+        print("Exiting the program...")
+        break
+    
+    # prints if the user input is less than 1 or greater than 5
+    else:
+        print("Invalid choice. Please try again.")
+        continue
+
