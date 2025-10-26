@@ -6,17 +6,21 @@
 from coin import Coin
 # Importing the Coin class from coin.py
 
+
 def main():
     player_1 = Coin()
     player_2 = Coin()
 
     print("Welcome to the Matching Coins Game!")
-    play = input("Do you want to play? (y/n): ")
     
-    # Make sure the input is valid
-    if play.lower() != 'y' or play.lower() != 'n':
-        print("Invalid input. Please enter 'y' or 'n'.")
-        return
+    while True:
+        play = input("Do you want to play? (y/n): ")
+    
+        # Make sure the input is valid
+        if play.lower() in ['y', 'n']:
+            break
+        else:
+            print("Invalid input. Please enter 'y' or 'n'.")
 
 
     while play.lower() == 'y':
