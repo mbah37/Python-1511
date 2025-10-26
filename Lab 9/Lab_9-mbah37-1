@@ -24,6 +24,16 @@ def main():
             player_1.set_amount(-1)
             player_2.set_amount(+1)
         
+        print(f"Player 1 total coins: {player_1.get_amount()}")
+        print(f"Player 2 total coins: {player_2.get_amount()}")
+
+        if player_1.get_amount() <= 0 or player_2.get_amount() <= 0:
+            print("\nGame Over! A player has ran out of coins.")
+            break
+
+    
+
+
         
 
 
