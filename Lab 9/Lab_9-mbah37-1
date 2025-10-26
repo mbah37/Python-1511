@@ -1,3 +1,15 @@
 from coin import coin 
 
+def main():
+    player_1 = Coin()
+    player_2 = Coin()
 
+    print("Welcome to the Matching Coins Game!")
+    play = input("Do you want to play? (y/n): ")
+
+    while play.lower() == 'y':
+
+        player_1.toss()
+        player_2.toss()
+
+        
