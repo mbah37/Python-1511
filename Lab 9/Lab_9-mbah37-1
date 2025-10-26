@@ -12,4 +12,20 @@ def main():
         player_1.toss()
         player_2.toss()
 
+        print(f"Player 1 tossed: {player_1.get_sideup()}")
+        print(f"Player 2 tossed: {player_2.get_sideup()}")
+
+        if player_1.get_sideup() == player_2.get_sideup():
+            print("It's a match. Player 1 wins this round!")
+            player_1.set_amount(+1)
+            player_2.set_amount(-1)
+        else:
+            print("No match. Player 2 wins this round!")
+            player_1.set_amount(-1)
+            player_2.set_amount(+1)
         
+        
+
+
+
+  
