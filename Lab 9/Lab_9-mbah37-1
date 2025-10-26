@@ -1,4 +1,10 @@
+#Moustapha Bah
+#Coin Matching Game
+#10/25/2025
+
+
 from coin import Coin
+# Importing the Coin class from coin.py
 
 def main():
     player_1 = Coin()
@@ -6,52 +12,73 @@ def main():
 
     print("Welcome to the Matching Coins Game!")
     play = input("Do you want to play? (y/n): ")
+    
+    # Make sure the input is valid
+    if play.lower() != 'y' or play.lower() != 'n':
+        print("Invalid input. Please enter 'y' or 'n'.")
+        return
+
 
     while play.lower() == 'y':
-
+        
+        #Both players toss their coins
         player_1.toss()
         player_2.toss()
 
         print(f"Player 1 tossed: {player_1.get_sideup()}")
         print(f"Player 2 tossed: {player_2.get_sideup()}")
 
+        # If the sides match, Player 1 wins the round
         if player_1.get_sideup() == player_2.get_sideup():
             print("It's a match. Player 1 wins this round!")
             player_1.set_amount(+1)
             player_2.set_amount(-1)
+        
+        # If the sides do not match, Player 2 wins the round
         else:
             print("No match. Player 2 wins this round!")
             player_1.set_amount(-1)
             player_2.set_amount(+1)
         
+        # Display player's total amount of coins
         print(f"Player 1 total coins: {player_1.get_amount()}")
         print(f"Player 2 total coins: {player_2.get_amount()}")
 
-        if player_1.get_amount() <= 0 or player_2.get_amount() <= 0:
-            print("\nGame Over! A player has ran out of coins.")
+        ''' Displays winner message if either player runs out of coins 
+        while input is y to continue playing '''
+        
+        if player_1.get_amount() <= 0:
+            print(F"Game Over! Player 1 wins!! Player 2 has ran out of coins.")
             break
+        
+        else:
+            if player_2.get_amount() <= 0:
+                print(F"Game Over! Player 2 wins!! Player 1 has ran out of coins.")
+                break
 
-        play = input("\nDo you want to play again? (y/n): ")
+        
+        play = input("Do you want to play again? (y/n): ")
     
-    print("\nFinal Results:")
+    # Final results after exiting the loop
+    print("Final Results:")
     print(f"Player 1 total: {player_1.get_amount()}")
     print(f"Player 2 total: {player_2.get_amount()}")
 
+   
+    ''' Determine overall winner or if it's a tie if game ends
+    without a player running out of coins '''
+    
     if player_1.get_amount() > player_2.get_amount():
         print("Player 1 wins the game!")
+    
     elif player_1.get_amount() < player_2.get_amount():
         print("Player 2 wins the game!")
+    
     else:
         print("It’s a tie!")
 
+
 if __name__ == "__main__":
     main()
-
-    
-
-
-        
-
-
 
   
