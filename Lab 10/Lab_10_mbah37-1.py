@@ -16,7 +16,8 @@ def count_word_frequency(fptr):
         words = line.split()
         for word in words:
             tmp = word.lower()
-            word_count.get(tmp, 0) + 1
+            word_count[tmp] = word_count.get(tmp, 0) + 1
+        line = fptr.readline()
     return word_count
 
 def print_word_frequency(word_count):
@@ -25,21 +26,21 @@ def print_word_frequency(word_count):
 
 
 def main():
-    while True:
-        filename = input("Enter the filename: ")
+    file_name = input("Enter the filename: ")
    
-        try:
-            filepath = Path(filename)
-    
-        except FileNotFoundError:
-            print("File not found. Please check the filename and try again.")
-            continue
-        else:
-            with filepath.open('r') as fptr:
-                word_count = count_word_frequency(fptr)
-                print_word_frequency(word_count)
-            break
-            
+    try:
+        with open(file_name,'r') as fptr:
+            pass
+    except FileNotFoundError:
+        print(f" Error: The file '{file_name}' was not found.")
+        
+    else:
+        word_count = count_word_frequency(fptr)
+        print_word_frequency(word_count)
+
+
+if __name__ == "__main__":
+    main()
     
         
 
