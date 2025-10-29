@@ -21,7 +21,7 @@ def count_word_frequency(fptr):
     return word_count
 
 def print_word_frequency(word_count):
-    for word, count in sorted(word_count.items()):
+    for word, count in sorted(word_count.keys()):
         print(f"{word}: {count}")
 
 
