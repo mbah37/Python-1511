@@ -26,13 +26,12 @@ def print_word_frequency(word_count):
 
 
 def main():
-    while True
+    while True:
         file_name = input("Enter the filename: ")
    
         try:
-            with open(file_name,'r') as fptr:
-            
-        
+            fptr = open(file_name,'r')
+ 
         except FileNotFoundError:
             print(f" Error: The file '{file_name}' was not found. Try again.")
         
@@ -42,6 +41,7 @@ def main():
         else:
             word_count = count_word_frequency(fptr)
             print_word_frequency(word_count)
+            fptr.close()
             break
 
 
