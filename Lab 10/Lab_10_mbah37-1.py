@@ -11,7 +11,7 @@ def count_word_frequency(fptr):
     line = fptr.readline()
     
     ''' List of punctuation characters to be removed from the text'''
-    punctChars = ('.', ',', '!', '?', ';', ':', '"', "'", '(', ')', '[', ']', '{', '}', '-', '_', '\n', '\r')
+    punctChars = (".", ",", "!", "?", ";", ":", '"', "'", "(", ")", "[", "]", "{", "}", "-", "_", "\n", "\r")
     
     ''' Process each line until the end of the file'''
     while line:
@@ -32,7 +32,7 @@ def count_word_frequency(fptr):
 
 def print_word_frequency(word_count):
     ''' Print the word frequency in alphabetical order'''
-    for word, count in sorted(word_count.keys()):
+    for word, count in sorted(word_count.items()):
         print(f"{word}: {count}")
 
 '''' Main function to handle user input and file processing'''
@@ -43,9 +43,10 @@ def main():
    
         try:
             ''' Open the file for reading'''
-            fptr = open(file_name,'r')
- 
-            '''Prints if file is not found '''
+            fptr = open(file_name,'r', encoding='utf-8')
+        
+
+            ''' Prints if file is not found '''
         except FileNotFoundError:
             print(f" Error: The file '{file_name}' was not found. Try again.")
 
@@ -54,12 +55,13 @@ def main():
             print(f" Error: Could not read the file '{file_name}'.Please check the file format(.txt).")
         
             ''' If file is opened successfully, process the file '''
+        
         else:
             word_count = count_word_frequency(fptr)
             print_word_frequency(word_count)
             fptr.close()
-           
             break
+
 
 
 if __name__ == "__main__":
