@@ -11,20 +11,26 @@ def count_word_frequency(fptr):
     line = fptr.readline()
     
     ''' List of punctuation characters to be removed from the text'''
-    punctChars = (".", ",", "!", "?", ";", ":", '"', "'", "(", ")", "[", "]", "{", "}", "-", "_", "\n", "\r")
+    punctChars = (".", ",", "!", "?", ";", ":", "(", ")", "[", "]", "{", "}", "-", "_", "\n", "\r")
     
     ''' Process each line until the end of the file'''
     while line:
+        ''' Replace each punctuation character with a space'''
         for c in punctChars:
-            ''' Replace each punctuation character with a space'''
             line = line.replace(c, ' ')
-        ''' Splitting the line into words'''
+        
+        contractions = []
         words = line.split()
         
         ''' Counting the frequency of each word'''
         for word in words:
-            tmp = word.lower()
-            word_count[tmp] = word_count.get(tmp, 0) + 1
+            word = word.strip('\'"')  # Removes leading/trailing quotes
+            word = word.lower() 
+            if word:
+                contractions.append(word)
+
+            for tmp in contractions:   
+                word_count[tmp] = word_count.get(tmp, 0) + 1
         ''' Read the next line from the file until the end of the file'''
         line = fptr.readline()
     
