@@ -14,6 +14,5 @@ def normal_angle():
             rotating_angle = degrees % 360
             return rotating_angle
 
-print(normal_angle())  # Example usage
 
 
