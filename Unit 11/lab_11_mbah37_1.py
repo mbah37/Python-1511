@@ -6,7 +6,7 @@
 def normal_angle(degrees):
     while True: 
         try:
-            degrees = float(input("Enter the rotating angle in degrees: "))
+            degrees = float(degrees)
         except (ValueError, TypeError):
             print("Invalid input: Please enter a numeric value for degrees.")
             continue
