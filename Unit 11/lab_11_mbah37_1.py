@@ -3,7 +3,7 @@
 # function for inputting a rotating angle(degrees) and normalize it by removing 
 # unnecessary full 360° rotations 
 
-def normal_angle():
+def normal_angle(degrees):
     while True: 
         try:
             degrees = float(input("Enter the rotating angle in degrees: "))
