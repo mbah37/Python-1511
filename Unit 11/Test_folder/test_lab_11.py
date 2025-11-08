@@ -10,11 +10,7 @@ def test_normal_angle_valid_input():
     assert normal_angle(-820) == 260
 
 def test_normal_angle_invalid_input():
-    with pytest.raises(ValueError):
-        normal_angle("abc")
-    with pytest.raises(ValueError):
-        normal_angle(None)
-    with pytest.raises(ValueError):
-        normal_angle([])
-    with pytest.raises(ValueError):
-        normal_angle({})
+    assert normal_angle("abc") == None
+    assert normal_angle(None) == None
+    assert normal_angle([]) == None
+    assert normal_angle({}) == None
