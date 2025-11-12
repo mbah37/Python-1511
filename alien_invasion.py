@@ -35,6 +35,20 @@ class WhiteWalkerInvasion:
             self._check_events()
             self.dragon.update()
             self._update_screen()
+        # change variable to dragon. remove comment when done
+        self.ship = Dragon(self)
+    
+    def run_game(self):
+        while self.running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                    pygame.quit()
+                    sys.exit()
+            self.screen.blit(self.bg, (0, 0))
+            # change variable to dragon. remove comment when done
+            self.ship.draw()
+            pygame.display.flip()
             self.clock.tick(self.settings.FPS)
 
     def _update_screen(self):
