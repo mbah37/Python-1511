@@ -23,6 +23,6 @@ class Settings:
         self.element_amount : int = 5
         self.screen_height : int = 800
         self.FPS : int = 60
-        self.bg_file : Path = Path.cwd() / 'Assets' / 'images' / 'Starbasesnow.png'
+        self.bg_file : Path = Path.cwd() / 'Assets' / 'images' / 'Winterfell_background.png'
 
 
