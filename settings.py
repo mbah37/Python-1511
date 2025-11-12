@@ -21,3 +21,8 @@ class Settings:
         self.element_height : int = 80
         self.element_speed : int = 7
         self.element_amount : int = 5
+        self.screen_height : int = 800
+        self.FPS : int = 60
+        self.bg_file : Path = Path.cwd() / 'Assets' / 'images' / 'Starbasesnow.png'
+
+
