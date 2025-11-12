@@ -2,7 +2,7 @@ import sys
 import pygame
 from settings import Settings
 
-class AlienInvasion:
+class WhiteWalkerInvasion:
 
     def __init__(self):
         pygame.init()
@@ -32,5 +32,5 @@ class AlienInvasion:
             self.clock.tick(self.settings.FPS)
 
 if __name__ == '__main__':
-    ai = AlienInvasion()
+    ai = WhiteWalkerInvasion()
     ai.run_game()
