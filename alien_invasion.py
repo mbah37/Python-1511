@@ -37,6 +37,8 @@ class WhiteWalkerInvasion:
             self._update_screen()
         # change variable to dragon. remove comment when done
         self.ship = Dragon(self)
+
+        self.dragon = Dragon(self)
     
     def run_game(self):
         while self.running:

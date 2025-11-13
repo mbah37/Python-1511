@@ -55,10 +55,9 @@ class Dragon:
         self.screen = game.screen
         self.screen_rect = self.screen.get_rect()
 
-        #change variable to dragon for height and width. remove comment when done
-        self.image = pygame.image.load(self.settings.ship_file)
+        self.image = pygame.image.load(self.settings.dragon_file)
         self.image = pygame.transform.scale(self.image,
-            (self.settings.ship_width, self.settings.ship_height))
+            (self.settings.dragon_width, self.settings.dragon_height))
         
         self.rect = self.image.get_rect()
         self.rect.midbottom = self.screen_rect.midbottom
