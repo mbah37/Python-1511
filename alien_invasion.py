@@ -43,7 +43,7 @@ class WhiteWalkerInvasion:
     def run_game(self):
         while self.running:
             self._check_events()
-            
+            self.dragon.update()
             self._update_screen()
             self.clock.tick(self.settings.FPS)
 
