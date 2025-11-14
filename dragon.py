@@ -70,9 +70,10 @@ class Dragon:
         # Checking the position of the dragon and updating its position
         temp_speed = self.settings.dragon_speed
         if self.moving_down and self.rect.bottom < self.boundaries.bottom:
-            self.y += temp_speed
+            self.y += self.settings.dragon_speed
+        
         if self.moving_up and self.rect.top > self.boundaries.top:
-            self.y -= temp_speed
+            self.y -= self.settings.dragon_speed
         
         self.rect.y = self.y
 

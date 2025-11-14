@@ -25,7 +25,7 @@ class Settings:
         self.FPS : int = 60
         self.bg_file : Path = Path.cwd() / 'Assets' / 'images' / 'Winterfell_background.png'
 
-        self.dragon_file : Path = Path.cwd() / 'Assets' / 'images' / 'Drogon1.png'
+        self.dragon_file : Path = Path.cwd() / 'Assets' / 'images' / 'Rhaegal2.png'
         self.dragon_width : int = 100
         self.dragon_height : int = 100
         self.dragon_speed : int = 5
