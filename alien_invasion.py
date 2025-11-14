@@ -26,7 +26,7 @@ class WhiteWalkerInvasion:
     def run_game(self):
         while self.running:
             self._check_events()
-            
+            self.dragon.update()
             self._update_screen()
             self.clock.tick(self.settings.FPS)
 
@@ -41,6 +41,30 @@ class WhiteWalkerInvasion:
                 self.running = False
                 pygame.quit()
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                self._check_keydown_events(event)
+            elif event.type == pygame.KEYUP:
+                self._check_keyup_events(event)
+
+
+    def _check_keyup_events(self, event):
+        if event.key == pygame.K_UP:
+            self.dragon.moving_up = False
+        if event.key == pygame.K_DOWN:
+            self.dragon.moving_down = False
+        
+
+    def _check_keydown_events(self, event):
+        if event.key == pygame.K_UP:
+            self.dragon.moving_up = True
+        if event.key == pygame.K_DOWN:
+            self.dragon.moving_down = True
+        if event.key == pygame.K_q:
+            self.running = False
+            pygame.quit()
+            sys.exit()
+        
+
 
 if __name__ == '__main__':
     ai = WhiteWalkerInvasion()

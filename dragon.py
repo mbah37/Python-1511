@@ -10,14 +10,28 @@ class Dragon:
         self.game = game
         self.settings = game.settings
         self.screen = game.screen
-        self.screen_rect = self.screen.get_rect()
+        self.boundaries = self.screen.get_rect()
 
         self.image = pygame.image.load(self.settings.dragon_file)
         self.image = pygame.transform.scale(self.image,
             (self.settings.dragon_width, self.settings.dragon_height))
         
         self.rect = self.image.get_rect()
-        self.rect.midleft = self.screen_rect.midleft
+        self.rect.midleft = self.boundaries.midleft
+        # Down is left arrow, up is right arrow
+        self.moving_down = False
+        self.moving_up = False
+        self.y = float(self.rect.y)
+    
+    def update(self):
+        # Checking the position of the dragon and updating its position
+        temp_speed = self.settings.dragon_speed
+        if self.moving_down and self.rect.bottom < self.boundaries.bottom:
+            self.y += temp_speed
+        if self.moving_up and self.rect.top > self.boundaries.top:
+            self.y -= temp_speed
+        
+        self.rect.y = self.y
 
     def draw(self):
         self.screen.blit(self.image, self.rect)

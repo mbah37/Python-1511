@@ -11,3 +11,4 @@ class Settings:
         self.dragon_file : Path = Path.cwd() / 'Assets' / 'images' / 'Drogon1.png'
         self.dragon_width : int = 100
         self.dragon_height : int = 100
+        self.dragon_speed : int = 5
