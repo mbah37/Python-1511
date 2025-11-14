@@ -60,7 +60,7 @@ class Dragon:
             (self.settings.dragon_width, self.settings.dragon_height))
         
         self.rect = self.image.get_rect()
-        self.rect.midbottom = self.screen_rect.midbottom
+        self.rect.midleft = self.screen_rect.midleft
 
     def draw(self):
         self.screen.blit(self.image, self.rect)
