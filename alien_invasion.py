@@ -2,6 +2,7 @@ import sys
 import pygame
 from settings import Settings
 from dragon import Dragon
+from arsenal import DragonArsenal
 
 class WhiteWalkerInvasion:
 
@@ -21,7 +22,13 @@ class WhiteWalkerInvasion:
         self.running = True
         self.clock = pygame.time.Clock()
 
-        self.dragon = Dragon(self)
+        pygame.mixer.init()
+        #Change later to sound for element shooting. remove comment when done
+        self.element_sound = pygame.mixer.Sound(self.settings.element_sound)
+        self.element_sound.set_volume(0.7)
+        
+        
+        self.dragon = Dragon(self, DragonArsenal(self))
     
     def run_game(self):
         while self.running:
@@ -50,16 +57,20 @@ class WhiteWalkerInvasion:
     def _check_keyup_events(self, event):
         if event.key == pygame.K_UP:
             self.dragon.moving_up = False
-        if event.key == pygame.K_DOWN:
+        elif event.key == pygame.K_DOWN:
             self.dragon.moving_down = False
         
 
     def _check_keydown_events(self, event):
         if event.key == pygame.K_UP:
             self.dragon.moving_up = True
-        if event.key == pygame.K_DOWN:
+        elif event.key == pygame.K_DOWN:
             self.dragon.moving_down = True
-        if event.key == pygame.K_q:
+        elif event.key == pygame.K_SPACE:
+            if self.dragon.shoot():
+                self.element_sound.play()
+                self.element_sound.fadeout(1250)
+        elif event.key == pygame.K_q:
             self.running = False
             pygame.quit()
             sys.exit()
