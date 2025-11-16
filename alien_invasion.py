@@ -24,6 +24,7 @@ class WhiteWalkerInvasion:
         self.clock = pygame.time.Clock()
 
         pygame.mixer.init()
+        #Change later to sound for element shooting. remove comment when done
         self.element_sound = pygame.mixer.Sound(self.settings.element_sound)
         self.element_sound.set_volume(0.7)
         
