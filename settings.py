@@ -31,6 +31,8 @@ class Settings:
         self.dragon_speed : int = 5
 
         self.element_file : Path = Path.cwd() / 'Assets' / 'images' / 'fire1.png'
+        self.element_file : Path = Path.cwd() / 'Assets' / 'images' / 'lightning.png'
+        #Change lighning element to horizontal image later. remove comment when done
         self.element_sound : Path = Path.cwd() / 'Assets' / 'sound' / 'roar.wav'
        
         self.element_width : int = 25
