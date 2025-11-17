@@ -1,0 +1,24 @@
+From bc5121cc4b2720c960954fb75cc4829f0dbcf07a Mon Sep 17 00:00:00 2001
+From: mbah37 <mbah37@student.cscc.edu>
+Date: Wed, 12 Nov 2025 10:24:18 -0500
+Subject: [PATCH 04/17] installed pathlib pytest and pytest coverage
+
+---
+ requirements.txt | Bin 14 -> 338 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+diff --git a/requirements.txt b/requirements.txt
+index 5873083e79e37f32380088030e28d8941e255fd3..9ec704de3df59539430e43cad128a05b3bc40c22 100644
+GIT binary patch
+literal 338
+zcmYk2Q4Yc&5JczO#G^=T)fzv%gICa|BC(>eXu{>y*#&7sC{5nm*@f??#T`BO6Gz;*
+z_gqUDthpP^F@qRybZS_hVr)q(E`yai4jxWTk2C+QTD5Y+Jjr=5y~UMZOT!muLu)hw
+zE}X~VqzTeNrm1p5j~DAKVxi5XI+DmO(u~qwXsSK1#wzm&7|MJVc692TAIUn>pj^nb
+P`$!l0RsL@wR=UFvy;?DM
+
+literal 14
+VcmXS@Oi#>BwY4?UGt)EV0sthG1N{I1
+
+-- 
+2.51.0.windows.1
+

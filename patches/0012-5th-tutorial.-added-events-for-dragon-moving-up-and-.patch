@@ -1,0 +1,104 @@
+From 07ee9686c99299ca591364dc8ffca865153a1277 Mon Sep 17 00:00:00 2001
+From: mbah37 <mbah37@student.cscc.edu>
+Date: Thu, 13 Nov 2025 22:09:15 -0500
+Subject: [PATCH 12/17] 5th tutorial. added events for dragon moving up and
+ down and built in boundaries
+
+---
+ alien_invasion.py | 26 +++++++++++++++++++++++++-
+ dragon.py         | 18 ++++++++++++++++--
+ settings.py       |  1 +
+ 3 files changed, 42 insertions(+), 3 deletions(-)
+
+diff --git a/alien_invasion.py b/alien_invasion.py
+index 4db9840..7130281 100644
+--- a/alien_invasion.py
++++ b/alien_invasion.py
+@@ -26,7 +26,7 @@ class WhiteWalkerInvasion:
+     def run_game(self):
+         while self.running:
+             self._check_events()
+-            
++            self.dragon.update()
+             self._update_screen()
+             self.clock.tick(self.settings.FPS)
+ 
+@@ -41,6 +41,30 @@ class WhiteWalkerInvasion:
+                 self.running = False
+                 pygame.quit()
+                 sys.exit()
++            elif event.type == pygame.KEYDOWN:
++                self._check_keydown_events(event)
++            elif event.type == pygame.KEYUP:
++                self._check_keyup_events(event)
++
++
++    def _check_keyup_events(self, event):
++        if event.key == pygame.K_UP:
++            self.dragon.moving_up = False
++        if event.key == pygame.K_DOWN:
++            self.dragon.moving_down = False
++        
++
++    def _check_keydown_events(self, event):
++        if event.key == pygame.K_UP:
++            self.dragon.moving_up = True
++        if event.key == pygame.K_DOWN:
++            self.dragon.moving_down = True
++        if event.key == pygame.K_q:
++            self.running = False
++            pygame.quit()
++            sys.exit()
++        
++
+ 
+ if __name__ == '__main__':
+     ai = WhiteWalkerInvasion()
+diff --git a/dragon.py b/dragon.py
+index edb2812..261c24b 100644
+--- a/dragon.py
++++ b/dragon.py
+@@ -10,14 +10,28 @@ class Dragon:
+         self.game = game
+         self.settings = game.settings
+         self.screen = game.screen
+-        self.screen_rect = self.screen.get_rect()
++        self.boundaries = self.screen.get_rect()
+ 
+         self.image = pygame.image.load(self.settings.dragon_file)
+         self.image = pygame.transform.scale(self.image,
+             (self.settings.dragon_width, self.settings.dragon_height))
+         
+         self.rect = self.image.get_rect()
+-        self.rect.midleft = self.screen_rect.midleft
++        self.rect.midleft = self.boundaries.midleft
++        # Down is left arrow, up is right arrow
++        self.moving_down = False
++        self.moving_up = False
++        self.y = float(self.rect.y)
++    
++    def update(self):
++        # Checking the position of the dragon and updating its position
++        temp_speed = self.settings.dragon_speed
++        if self.moving_down and self.rect.bottom < self.boundaries.bottom:
++            self.y += temp_speed
++        if self.moving_up and self.rect.top > self.boundaries.top:
++            self.y -= temp_speed
++        
++        self.rect.y = self.y
+ 
+     def draw(self):
+         self.screen.blit(self.image, self.rect)
+\ No newline at end of file
+diff --git a/settings.py b/settings.py
+index 10dbc76..3b19273 100644
+--- a/settings.py
++++ b/settings.py
+@@ -11,3 +11,4 @@ class Settings:
+         self.dragon_file : Path = Path.cwd() / 'Assets' / 'images' / 'Drogon1.png'
+         self.dragon_width : int = 100
+         self.dragon_height : int = 100
++        self.dragon_speed : int = 5
+-- 
+2.51.0.windows.1
+
