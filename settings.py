@@ -35,7 +35,7 @@ class Settings:
         #Change lighning element to horizontal image later. remove comment when done
         self.element_sound : Path = Path.cwd() / 'Assets' / 'sound' / 'roar.wav'
        
-        self.element_width : int = 25
+        self.element_width : int = 70
         self.element_height : int = 80
         self.element_speed : int = 7
         self.element_amount : int = 5
