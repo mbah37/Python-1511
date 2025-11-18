@@ -29,16 +29,7 @@ class WhiteWalkerInvasion:
         
         
         self.dragon = Dragon(self, DragonArsenal(self))
-    
-    def run_game(self):
-        while self.running:
-            self._check_events()
-            self.dragon.update()
-            self._update_screen()
-        # change variable to dragon. remove comment when done
-        self.ship = Dragon(self)
-
-        self.dragon = Dragon(self)
+     
     
     def run_game(self):
         while self.running:
@@ -50,8 +41,6 @@ class WhiteWalkerInvasion:
     def _update_screen(self):
         self.screen.blit(self.bg, (0, 0))
         self.dragon.draw()
-        # change variable to dragon. remove comment when done
-        self.ship.draw()
         pygame.display.flip()
 
     def _check_events(self):
