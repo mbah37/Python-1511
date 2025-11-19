@@ -24,17 +24,23 @@ class WhiteWalkerArmy:
 
         army_height, army_width = self.calc_army_size(walker_height, screen_height, walker_width, screen_width)
         
-        army_vertical_space = army_height * walker_height 
-        army_horizonal_space = army_width * walker_width
-        y_offset = int(screen_height - army_vertical_space) // 2
+        y_offset, x_offset = self.calc_offsets(walker_height, screen_height, walker_width, screen_width, army_height, army_width)
+        
+        self.army_formation(walker_height, walker_width, army_height, army_width, y_offset, x_offset)
 
-        start_position = screen_width - army_horizonal_space - 10
+    def army_formation(self, walker_height, walker_width, army_height, army_width, y_offset, x_offset):
         for column in range(army_width):
             for row in range(army_height):
                 current_y = walker_height * row + y_offset
-                current_x = start_position + walker_width * column
-            
+                current_x = walker_width * column + x_offset
                 self._create_walker(current_x, current_y)
+
+    def calc_offsets(self, walker_height, screen_height, walker_width, screen_width, army_height, army_width):
+        army_vertical_space = army_height * walker_height 
+        army_horizonal_space = army_width * walker_width
+        y_offset = int(screen_height - army_vertical_space) // 2
+        x_offset = screen_width - army_horizonal_space - 10
+        return y_offset, x_offset
 
 
     def calc_army_size(self, walker_height, screen_height, walker_width, screen_width):
