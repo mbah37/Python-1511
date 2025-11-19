@@ -19,28 +19,40 @@ class WhiteWalkerArmy:
     def create_army(self):
         walker_height = self.settings.walker_height
         screen_height = self.settings.screen_height
+        walker_width = self.settings.walker_width
+        screen_width = self.settings.screen_width
 
-        army_height = self.calc_army_size(walker_height, screen_height)
-
+        army_height, army_width = self.calc_army_size(walker_height, screen_height, walker_width, screen_width)
+        
         army_vertical_space = army_height * walker_height 
+        army_horizonal_space = army_width * walker_width
         y_offset = int(screen_height - army_vertical_space) // 2
 
-        current_x = screen_height - walker_height + 475
-        for row in range(army_height):
-            current_y = walker_height * row + y_offset
-            self._create_walker(current_x, current_y)
+        start_position = screen_width - army_horizonal_space - 10
+        for column in range(army_width):
+            for row in range(army_height):
+                current_y = walker_height * row + y_offset
+                current_x = start_position + walker_width * column
+            
+                self._create_walker(current_x, current_y)
 
 
-    def calc_army_size(self, walker_height, screen_height):
+    def calc_army_size(self, walker_height, screen_height, walker_width, screen_width):
         army_height = (screen_height // walker_height)
+        army_width = ((screen_width/2) // walker_width)
         
 
         if army_height % 2 == 0:
             army_height -= 1
         else:
             army_height -= 2
+        
+        if army_width % 2 == 0:
+            army_width -= 1
+        else:
+            army_width -= 2
 
-        return army_height
+        return int(army_height), int(army_width)
 
     
     def _create_walker(self, current_x: int, current_y: int):
