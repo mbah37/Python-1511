@@ -20,10 +20,15 @@ class Walker(Sprite):
         self.rect.x = x
         self.rect.y = y
 
-        #self.x = float(self.rect.x)
+        self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
     def update(self):
-        pass
+        temp_speed = self.settings.army_speed
+        self.y += temp_speed
+        self.rect.y = self.y
+
+        
 
     def draw_walker(self):
         self.screen.blit(self.image, self.rect)

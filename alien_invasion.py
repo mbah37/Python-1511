@@ -31,7 +31,7 @@ class WhiteWalkerInvasion:
         self.dragon = Dragon(self, DragonArsenal(self))
         # the higher you go the y value the lower you are on the screen
         # the higher the x value the more right you are on the screen
-        self.walker = Walker(self, 10, 10)
+        self.walker = Walker(self, 1100, 10)
      
     
     def run_game(self):
