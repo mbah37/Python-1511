@@ -25,7 +25,7 @@ class Settings:
         self.walker_width : int = 100
         self.walker_height : int = 70
         self.army_speed : int = 3
-        self.army_direction : int = 1  # 1 is down, -1 is up
-
+        self.army_direction : int = 1  
+        self.army_drop_speed : int = 70
 
     

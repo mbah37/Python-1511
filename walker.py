@@ -28,9 +28,11 @@ class Walker(Sprite):
 
         if self.check_edges():
             self.settings.army_direction *= -1
+            self.x -= self.settings.army_drop_speed
 
         self.y += temp_speed * self.settings.army_direction
         self.rect.y = self.y
+        self.rect.x = self.x
 
     def check_edges(self):
         return (self.rect.bottom >= self.boundaries.bottom or self.rect.top <= self.boundaries.top)
