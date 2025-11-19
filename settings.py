@@ -28,4 +28,6 @@ class Settings:
         self.army_direction : int = 1  
         self.army_drop_speed : int = 70
 
+        
+
     

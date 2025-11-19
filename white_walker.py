@@ -3,14 +3,14 @@ from pygame.sprite import Sprite
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from alien_invasion import WhiteWalkerInvasion
+    from white_walker_army import WhiteWalkerArmy
 
 class Walker(Sprite):
-    def __init__(self, game: 'WhiteWalkerInvasion', x: float, y: float):
+    def __init__(self, army: 'WhiteWalkerArmy', x: float, y: float):
         super().__init__()
-        self.screen = game.screen
-        self.boundaries = game.screen.get_rect()
-        self.settings = game.settings
+        self.screen = army.game.screen
+        self.boundaries = army.game.screen.get_rect()
+        self.settings = army.game.settings
 
         self.image = pygame.image.load(self.settings.walker_file)
         self.image = pygame.transform.scale(self.image,
@@ -40,3 +40,8 @@ class Walker(Sprite):
 
     def draw_walker(self):
         self.screen.blit(self.image, self.rect)
+
+
+
+
+

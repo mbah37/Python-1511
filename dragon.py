@@ -3,11 +3,11 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from alien_invasion import WhiteWalkerInvasion
-    from arsenal import Arsenal
+    from arsenal import DragonArsenal
 
 class Dragon:
     
-    def __init__(self, game: 'WhiteWalkerInvasion', arsenal = 'Arsenal'):
+    def __init__(self, game: 'WhiteWalkerInvasion', arsenal: 'DragonArsenal'):
         self.game = game
         self.settings = game.settings
         self.screen = game.screen
