@@ -21,4 +21,10 @@ class Settings:
         self.element_speed : int = 7
         self.element_amount : int = 5
        
-       
+        self.walker_file : Path = Path.cwd() / 'Assets' / 'images' / 'WWenemy.png'
+        self.walker_width : int = 100
+        self.walker_height : int = 70
+        self.army_speed : int = 5
+
+
+    

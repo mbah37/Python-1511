@@ -1,9 +1,9 @@
 import sys
 import pygame
-
 from settings import Settings
 from dragon import Dragon
 from arsenal import DragonArsenal
+from walker import Walker
 
 class WhiteWalkerInvasion:
 
@@ -29,18 +29,23 @@ class WhiteWalkerInvasion:
         
         
         self.dragon = Dragon(self, DragonArsenal(self))
+        # the higher you go the y value the lower you are on the screen
+        # the higher the x value the more right you are on the screen
+        self.walker = Walker(self, 10, 10)
      
     
     def run_game(self):
         while self.running:
             self._check_events()
             self.dragon.update()
+            self.walker.update()
             self._update_screen()
             self.clock.tick(self.settings.FPS)
 
     def _update_screen(self):
         self.screen.blit(self.bg, (0, 0))
         self.dragon.draw()
+        self.walker.draw_walker()
         pygame.display.flip()
 
     def _check_events(self):
