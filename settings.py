@@ -15,6 +15,7 @@ class Settings:
 
         self.element_file : Path = Path.cwd() / 'Assets' / 'images' / 'fire1.png'
         self.element_sound : Path = Path.cwd() / 'Assets' / 'sound' / 'roar.wav'
+        self.impact_sound : Path = Path.cwd() / 'Assets' / 'sound' / 'WWdies.wav'
 
         self.element_width : int = 70
         self.element_height : int = 80
@@ -27,6 +28,8 @@ class Settings:
         self.army_speed : float = 0.8
         self.army_direction : int = 1  
         self.army_drop_speed : int = 50
+
+
 
         
 
