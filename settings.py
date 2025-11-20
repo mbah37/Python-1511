@@ -12,6 +12,7 @@ class Settings:
         self.dragon_width : int = 100
         self.dragon_height : int = 100
         self.dragon_speed : int = 5
+        self.starting_dragon_count : int = 3
 
         self.element_file : Path = Path.cwd() / 'Assets' / 'images' / 'fire1.png'
         self.element_sound : Path = Path.cwd() / 'Assets' / 'sound' / 'roar.wav'
@@ -25,7 +26,7 @@ class Settings:
         self.walker_file : Path = Path.cwd() / 'Assets' / 'images' / 'WWenemy.png'
         self.walker_width : int = 100
         self.walker_height : int = 70
-        self.army_speed : float = 0.8
+        self.army_speed : float = 1.0
         self.army_direction : int = 1  
         self.army_drop_speed : int = 50
 

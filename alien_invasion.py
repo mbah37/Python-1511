@@ -1,16 +1,19 @@
 import sys
 import pygame
 from settings import Settings
+from game_stats import GameStats
 from dragon import Dragon
 from arsenal import DragonArsenal
 #from white_walker import Walker
 from white_walker_army import WhiteWalkerArmy
+from time import sleep
 
 class WhiteWalkerInvasion:
 
     def __init__(self):
         pygame.init()
         self.settings = Settings()
+        self.game_stats = GameStats(self.settings.starting_dragon_count)
 
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
@@ -36,27 +39,29 @@ class WhiteWalkerInvasion:
         self.white_walker_army = WhiteWalkerArmy(self)
         # the higher you go the y value the lower you are on the screen
         # the higher the x value the more right you are on the screen
-        self.white_walker_army.create_army()     
+        self.white_walker_army.create_army() 
+        self.game_active = True    
     
     def run_game(self):
         # Main loop for the game.
         while self.running:
             self._check_events()
-            self.dragon.update()
-            self.white_walker_army.update_army()
-            self._check_collisions()
+            if self.game_active:
+                self.dragon.update()
+                self.white_walker_army.update_army()
+                self._check_collisions()
             self._update_screen()
             self.clock.tick(self.settings.FPS)
 
     def _check_collisions(self):
         #check collisions for dragons
         if self.dragon.check_collision(self.white_walker_army.army):
-            self._reset_level()
+            self._check_game_status()
             #subtract a life
 
         #check collisions for white walkers hitting left side of the screen
         if self.white_walker_army.check_left_edge():
-            self._reset_level()
+            self._check_game_status()
 
         #check collions for projectiles and white walkers
         collisions = self.white_walker_army.check_collisions(self.dragon.arsenal.arsenal)
@@ -68,6 +73,13 @@ class WhiteWalkerInvasion:
             self._reset_level()
         
         
+    def _check_game_status(self):
+        if self.game_stats.dragons_left > 0:
+            self.game_stats.dragons_left -= 1
+            self._reset_level()
+            sleep(0.75)
+        else:
+            self.game_active = False
 
     def _reset_level(self):
         self.dragon.arsenal.arsenal.empty()

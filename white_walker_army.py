@@ -93,7 +93,7 @@ class WhiteWalkerArmy:
     def check_left_edge(self):
         walker: Walker
         for walker in self.army:
-            if walker.rect.left <= 0:
+            if walker.rect.left <= -10:
                 return True
         return False
 
