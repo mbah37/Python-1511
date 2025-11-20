@@ -64,6 +64,9 @@ class WhiteWalkerInvasion:
             self.impact_sound.play()
             self.impact_sound.fadeout(1250)
         
+        if self.white_walker_army.check_destroyed_status():
+            self._reset_level()
+        
         
 
     def _reset_level(self):
