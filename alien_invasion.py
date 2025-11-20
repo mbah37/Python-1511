@@ -54,6 +54,15 @@ class WhiteWalkerInvasion:
             self._reset_level()
             #subtract a life
 
+        #check collisions for white walkers hitting left side of the screen
+        if self.white_walker_army.check_left_edge():
+            self._reset_level()
+
+        #check collions for projectiles and white walkers
+        collisions = self.white_walker_army.check_collisions(self.dragon.arsenal.arsenal)
+        if collisions:
+            self.impact_sound.play()
+            self.impact_sound.fadeout(1250)
         
         
 

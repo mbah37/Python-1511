@@ -86,6 +86,16 @@ class WhiteWalkerArmy:
         walker: 'Walker'
         for walker in self.army:
             walker.draw_walker()
+    
+    def check_collisions(self, other_group):
+        return pygame.sprite.groupcollide(self.army, other_group, True, True)
+    
+    def check_left_edge(self):
+        walker: Walker
+        for walker in self.army:
+            if walker.rect.left <= 0:
+                return True
+        return False
 
 
 
