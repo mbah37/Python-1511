@@ -28,6 +28,9 @@ class WhiteWalkerInvasion:
         self.element_sound = pygame.mixer.Sound(self.settings.element_sound)
         self.element_sound.set_volume(0.7)
         
+        self.impact_sound = pygame.mixer.Sound(self.settings.impact_sound)
+        self.impact_sound.set_volume(0.7)
+        
         
         self.dragon = Dragon(self, DragonArsenal(self))
         self.white_walker_army = WhiteWalkerArmy(self)
@@ -41,8 +44,23 @@ class WhiteWalkerInvasion:
             self._check_events()
             self.dragon.update()
             self.white_walker_army.update_army()
+            self._check_collisions()
             self._update_screen()
             self.clock.tick(self.settings.FPS)
+
+    def _check_collisions(self):
+        #check collisions for dragons
+        if self.dragon.check_collision(self.white_walker_army.army):
+            self._reset_level()
+            #subtract a life
+
+        
+        
+
+    def _reset_level(self):
+        self.dragon.arsenal.arsenal.empty()
+        self.white_walker_army.army.empty()
+        self.white_walker_army.create_army()
 
     def _update_screen(self):
         self.screen.blit(self.bg, (0, 0))

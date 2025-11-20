@@ -18,12 +18,15 @@ class Dragon:
             (self.settings.dragon_width, self.settings.dragon_height))
         
         self.rect = self.image.get_rect()
-        self.rect.midleft = self.boundaries.midleft
+        self._center_dragon()
         # Down is left arrow, up is right arrow
         self.moving_down = False
         self.moving_up = False
-        self.y = float(self.rect.y)
         self.arsenal = arsenal
+
+    def _center_dragon(self):
+        self.rect.midleft = self.boundaries.midleft
+        self.y = float(self.rect.y)
     
     def update(self):
         # Checking the position of the dragon and updating its position
@@ -47,4 +50,9 @@ class Dragon:
     def shoot(self):
         return self.arsenal.shoot_element()
 
+    def check_collision(self, other_group):
+        if pygame.sprite.spritecollideany(self, other_group):
+            self._center_dragon()
+            return True
+        return False
 
