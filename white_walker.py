@@ -8,6 +8,7 @@ if TYPE_CHECKING:
 class Walker(Sprite):
     def __init__(self, army: 'WhiteWalkerArmy', x: float, y: float):
         super().__init__()
+        self.army = army
         self.screen = army.game.screen
         self.boundaries = army.game.screen.get_rect()
         self.settings = army.game.settings
@@ -26,11 +27,8 @@ class Walker(Sprite):
     def update(self):
         temp_speed = self.settings.army_speed
 
-        if self.check_edges():
-            self.settings.army_direction *= -1
-            self.x -= self.settings.army_drop_speed
 
-        self.y += temp_speed * self.settings.army_direction
+        self.y += temp_speed * self.army.army_direction
         self.rect.y = self.y
         self.rect.x = self.x
 

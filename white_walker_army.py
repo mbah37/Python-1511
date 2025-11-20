@@ -26,9 +26,9 @@ class WhiteWalkerArmy:
         
         y_offset, x_offset = self.calc_offsets(walker_height, screen_height, walker_width, screen_width, army_height, army_width)
         
-        self.army_formation(walker_height, walker_width, army_height, army_width, y_offset, x_offset)
+        self._army_formation(walker_height, walker_width, army_height, army_width, y_offset, x_offset)
 
-    def army_formation(self, walker_height, walker_width, army_height, army_width, y_offset, x_offset):
+    def _army_formation(self, walker_height, walker_width, army_height, army_width, y_offset, x_offset):
         for column in range(army_width):
             for row in range(army_height):
                 current_y = walker_height * row + y_offset
@@ -64,6 +64,23 @@ class WhiteWalkerArmy:
     def _create_walker(self, current_x: int, current_y: int):
         new_walker = Walker(self, current_x, current_y)
         self.army.add(new_walker)
+    
+    def _check_army_edges(self):
+        walker: Walker
+        for walker in self.army:
+            if walker.check_edges():
+                self._drop_white_walker_army()
+                self.army_direction *= -1
+                break
+   
+    def _drop_white_walker_army(self):
+        for walker in self.army:
+            walker.x -= self.army_drop_speed
+
+
+    def update_army(self):
+        self._check_army_edges()
+        self.army.update()
 
     def draw(self):
         walker: 'Walker'

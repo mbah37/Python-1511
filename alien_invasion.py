@@ -40,7 +40,7 @@ class WhiteWalkerInvasion:
         while self.running:
             self._check_events()
             self.dragon.update()
-            #self.walker.update()
+            self.white_walker_army.update_army()
             self._update_screen()
             self.clock.tick(self.settings.FPS)
 
