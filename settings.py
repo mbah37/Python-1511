@@ -53,3 +53,13 @@ class Settings:
         self.army_direction : int = 1 # 1 means initial movement is Down, -1 is Up.
         # How many pixels the army drops down when changing direction.
         self.army_drop_speed : int = 50 
+
+        self.button_width : int = 200 # Width of the play button
+        self.button_height : int = 50 # Height of the play button
+        self.button_color : tuple = (3, 202, 252) # Color of the play button (RGB).
+
+        self.text_color : tuple = (255, 255, 255) # Color of the text (RGB).
+        self.button_font_size : int = 48 # Font size for the button text
+        self.HUD_font_size : int = 20 # Font size for the HUD text
+        # Path to the font file
+        self.font_file : Path = Path.cwd() / 'Assets' / 'Fonts' / 'Silkcreen' / 'TrajonPro-Regular.ttf'

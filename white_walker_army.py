@@ -52,7 +52,8 @@ class WhiteWalkerArmy:
                 self._create_walker(current_x, current_y)
 
     def calc_offsets(self, walker_height, screen_height, walker_width, screen_width, army_height, army_width):
-        """Calculate the top (y) and right (x) offset to center the army vertically and position it on the right."""
+        """Calculate the top (y) and right (x) offset to center the army vertically
+        and position it on the right."""
         
         # Total vertical space the army occupies.
         army_vertical_space = army_height * walker_height 

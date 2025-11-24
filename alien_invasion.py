@@ -12,6 +12,7 @@ class WhiteWalkerInvasion:
 
     def __init__(self):
         """Initialize the game, and create game resources."""
+        
         pygame.init() # Initialize all imported pygame modules.
         
         # Load game settings and initialize game statistics.
@@ -61,9 +62,10 @@ class WhiteWalkerInvasion:
     
     def run_game(self):
         """Start the main loop for the game."""
+        
         while self.running:
             
-            # Check for user input (keyboard, mouse, window close).
+            # Checking for user input
             self._check_events() 
             if self.game_active:
                 self.dragon.update() # Update the dragon's position and arsenal.
