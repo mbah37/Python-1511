@@ -6,6 +6,7 @@ from dragon import Dragon
 from arsenal import DragonArsenal
 from white_walker_army import WhiteWalkerArmy
 from time import sleep
+from button import Button
 
 class WhiteWalkerInvasion:
     """Overall class to manage game assets and behavior."""
@@ -57,8 +58,11 @@ class WhiteWalkerInvasion:
         # Populate the screen with White Walkers.
         self.white_walker_army.create_army() 
         
+        # Create the Play button.
+        self.play_button = Button(self, "Play") 
+        
         # Flag to indicate if the game is currently running (not paused or game over).
-        self.game_active = True 
+        self.game_active = False 
     
     def run_game(self):
         """Start the main loop for the game."""
@@ -122,12 +126,28 @@ class WhiteWalkerInvasion:
         self.white_walker_army.army.empty() # Clear all existing White Walkers.
         self.white_walker_army.create_army() # Reset formation of White Walkers.
 
+    def restart_game(self):
+        # set up dynamic settings
+        # restart game statistics
+        # update scoreboard images (HUD)
+        # reset the level
+        self._reset_level()
+        # recenter the dragon
+        self.dragon._center_dragon()
+        
+        self.game_active = True
+        pygame.mouse.set_visible(False) # Hide the mouse cursor.
+
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
         
         self.screen.blit(self.bg, (0, 0)) # Draw the background image.
         self.dragon.draw() # Draw the dragon and its projectiles.
         self.white_walker_army.draw() # Draw all White Walkers.
+        
+        if not self.game_active:
+            self.play_button.draw() # Draw the Play button if the game is inactive.
+            pygame.mouse.set_visible(True) # Show the mouse cursor.
         
         pygame.display.flip() # Make the most recently drawn screen visible.
 
@@ -143,6 +163,14 @@ class WhiteWalkerInvasion:
                 self._check_keydown_events(event) # Handle key press (down) events.
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event) # Handle key release (up) events.
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                self._check_button_clicked()
+
+    def _check_button_clicked(self):
+        mouse_position = pygame.mouse.get_pos() 
+        if self.play_button.check_click(mouse_position):
+            self.restart_game()
+                    
 
 
     def _check_keyup_events(self, event):

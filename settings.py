@@ -62,4 +62,4 @@ class Settings:
         self.button_font_size : int = 48 # Font size for the button text
         self.HUD_font_size : int = 20 # Font size for the HUD text
         # Path to the font file
-        self.font_file : Path = Path.cwd() / 'Assets' / 'Fonts' / 'Silkcreen' / 'TrajonPro-Regular.ttf'
+        self.font_file : Path = Path.cwd() / 'Assets' / 'Fonts' / 'Silkscreen' / 'TrajanPro-Regular.ttf'
