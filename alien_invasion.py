@@ -159,7 +159,7 @@ class WhiteWalkerInvasion:
                 self.running = False # Stop the main game loop.
                 pygame.quit() # Uninitialize pygame modules.
                 sys.exit() # Exit the program.
-            elif event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN and self.game_active == True:
                 self._check_keydown_events(event) # Handle key press (down) events.
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event) # Handle key release (up) events.
