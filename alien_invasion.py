@@ -18,6 +18,7 @@ class WhiteWalkerInvasion:
         
         # Load game settings and initialize game statistics.
         self.settings = Settings()
+        self.settings.initialize_dynamic_settings()
         self.game_stats = GameStats(self.settings.starting_dragon_count)
 
         # Set up the main game screen (display surface).

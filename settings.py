@@ -16,6 +16,9 @@ class Settings:
         # Construct the file path for the background image.
         self.bg_file : Path = Path.cwd() / 'Assets' / 'images' / 'Winterfell1.png'
 
+        self.difficulty_scale : float = 1.1 # Multiplier for increasing difficulty and
+                                        # speed of game elements.
+
         # --- Dragon (Player) Settings ---
         
         # Construct the file path for the dragon image.
@@ -23,8 +26,7 @@ class Settings:
         
         self.dragon_width : int = 100 # Width of the dragon
         self.dragon_height : int = 100 # Height of the dragon
-        self.dragon_speed : int = 5 # Speed of the dragon
-        self.starting_dragon_count : int = 3 # Number of lives the dragon has
+        
 
         # --- Element (Projectile) Settings ---
         
@@ -36,12 +38,8 @@ class Settings:
         
         # Construct the file path for the impact/death sound.
         self.impact_sound : Path = Path.cwd() / 'Assets' / 'sound' / 'WWdies.wav'
-
-        self.element_width : int = 70 # Width of the element 
-        self.element_height : int = 80 # Height of the element 
-        self.element_speed : int = 7 # Speed of the element
-        self.element_amount : int = 5 # Maximum number of elements allowed on screen at once.
-       
+    
+        
         # --- White Walker (Enemy) Settings ---
         
         # Construct the file path for the enemy image.
@@ -49,10 +47,8 @@ class Settings:
         
         self.walker_width : int = 100 # Width of a white walker 
         self.walker_height : int = 70 # Height of a white walker
-        self.army_speed : float = 1.0 # speed of the army.
         self.army_direction : int = 1 # 1 means initial movement is Down, -1 is Up.
-        # How many pixels the army drops down when changing direction.
-        self.army_drop_speed : int = 50 
+        
 
         self.button_width : int = 200 # Width of the play button
         self.button_height : int = 50 # Height of the play button
@@ -63,3 +59,29 @@ class Settings:
         self.HUD_font_size : int = 20 # Font size for the HUD text
         # Path to the font file
         self.font_file : Path = Path.cwd() / 'Assets' / 'Fonts' / 'Silkscreen' / 'TrajanPro-Regular.ttf'
+
+    def initialize_dynamic_settings(self):
+        """Initialize settings that change throughout the game."""
+       
+        self.dragon_speed : int = 5 # Speed of the dragon
+        self.starting_dragon_count : int = 3 # Number of lives the dragon has
+
+        self.element_speed : int = 7 # Speed of the element
+        self.element_amount : int = 5 # Maximum number of elements allowed on screen at once.
+        self.element_width : int = 70 # Width of the element 
+        self.element_height : int = 80 # Height of the element   
+        
+        self.army_speed : float = 1.0 # speed of the army.
+        # How many pixels the army drops down when changing direction.
+        self.army_drop_speed : int = 50 
+
+    
+    def increase_difficulty(self):
+        """Increase speed settings and army point values."""
+        
+        self.dragon_speed *= self.difficulty_scale
+        self.element_speed *= self.difficulty_scale
+        self.army_speed *= self.difficulty_scale
+
+         
+
