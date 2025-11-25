@@ -105,8 +105,10 @@ class WhiteWalkerInvasion:
         # Check if the entire White Walker army has been destroyed.
         if self.white_walker_army.check_destroyed_status():
             #resets and recreates the army
-            self._reset_level() 
-        
+            self._reset_level()
+            self.settings.increase_difficulty() # Increase game difficulty. 
+            # update level in game stats
+            # update HUD view
         
     def _check_game_status(self):
         """Handle the consequence of the dragon or army reaching a critical state."""
@@ -128,7 +130,10 @@ class WhiteWalkerInvasion:
         self.white_walker_army.create_army() # Reset formation of White Walkers.
 
     def restart_game(self):
+        """Restart the game to its initial state."""
+        
         # set up dynamic settings
+        self.settings.initialize_dynamic_settings()
         # restart game statistics
         # update scoreboard images (HUD)
         # reset the level
@@ -145,6 +150,7 @@ class WhiteWalkerInvasion:
         self.screen.blit(self.bg, (0, 0)) # Draw the background image.
         self.dragon.draw() # Draw the dragon and its projectiles.
         self.white_walker_army.draw() # Draw all White Walkers.
+        # Draw the HUD (score, lives, level).
         
         if not self.game_active:
             self.play_button.draw() # Draw the Play button if the game is inactive.
