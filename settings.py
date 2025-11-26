@@ -18,6 +18,7 @@ class Settings:
 
         self.difficulty_scale : float = 1.1 # Multiplier for increasing difficulty and
                                         # speed of game elements.
+        self.scores_file : Path = Path.cwd() / 'Assets' / 'file' / 'scores.json'
 
         # --- Dragon (Player) Settings ---
         
