@@ -19,7 +19,7 @@ class WhiteWalkerInvasion:
         # Load game settings and initialize game statistics.
         self.settings = Settings()
         self.settings.initialize_dynamic_settings()
-        self.game_stats = GameStats(self.settings.starting_dragon_count)
+        self.game_stats = GameStats(self)
 
         # Set up the main game screen (display surface).
         self.screen = pygame.display.set_mode(
@@ -28,7 +28,7 @@ class WhiteWalkerInvasion:
         pygame.display.set_caption(self.settings.name) # Set the window title.
 
         # Load and scale the background image.
-        self.bg = pygame.image.load(self.settings.bg_file)
+        self.bg: pygame.Surface = pygame.image.load(self.settings.bg_file)
         self.bg = pygame.transform.scale(self.bg,
              (self.settings.screen_width, self.settings.screen_height))
 
@@ -52,9 +52,6 @@ class WhiteWalkerInvasion:
         
         # Create the WhiteWalkerArmy instance to manage all enemies.
         self.white_walker_army = WhiteWalkerArmy(self)
-        
-        # the higher you go the y value the lower you are on the screen
-        # the higher the x value the more right you are on the screen
         
         # Populate the screen with White Walkers.
         self.white_walker_army.create_army() 
@@ -101,13 +98,17 @@ class WhiteWalkerInvasion:
             # If any collision occurred, play the impact sound.
             self.impact_sound.play()
             self.impact_sound.fadeout(1250) 
+            self.game_stats.update(collisions) # Update score and max score.
         
         # Check if the entire White Walker army has been destroyed.
         if self.white_walker_army.check_destroyed_status():
             #resets and recreates the army
             self._reset_level()
             self.settings.increase_difficulty() # Increase game difficulty. 
+            
             # update level in game stats
+            self.game_stats.update_level()
+            
             # update HUD view
         
     def _check_game_status(self):
@@ -134,10 +135,15 @@ class WhiteWalkerInvasion:
         
         # set up dynamic settings
         self.settings.initialize_dynamic_settings()
+
         # restart game statistics
+        self.game_stats.reset_stats()
+        
         # update scoreboard images (HUD)
+
         # reset the level
         self._reset_level()
+
         # recenter the dragon
         self.dragon._center_dragon()
         

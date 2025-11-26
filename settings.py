@@ -57,6 +57,7 @@ class Settings:
         self.text_color : tuple = (255, 255, 255) # Color of the text (RGB).
         self.button_font_size : int = 48 # Font size for the button text
         self.HUD_font_size : int = 20 # Font size for the HUD text
+        
         # Path to the font file
         self.font_file : Path = Path.cwd() / 'Assets' / 'Fonts' / 'Silkscreen' / 'TrajanPro-Regular.ttf'
 
@@ -74,6 +75,7 @@ class Settings:
         self.army_speed : float = 1.0 # speed of the army.
         # How many pixels the army drops down when changing direction.
         self.army_drop_speed : int = 50 
+        self.walker_points : int = 50 # Points awarded for defeating a white walker.
 
     
     def increase_difficulty(self):
