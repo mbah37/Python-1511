@@ -7,6 +7,7 @@ from arsenal import DragonArsenal
 from white_walker_army import WhiteWalkerArmy
 from time import sleep
 from button import Button
+from hud import HUD
 
 class WhiteWalkerInvasion:
     """Overall class to manage game assets and behavior."""
@@ -19,8 +20,6 @@ class WhiteWalkerInvasion:
         # Load game settings and initialize game statistics.
         self.settings = Settings()
         self.settings.initialize_dynamic_settings()
-        self.game_stats = GameStats(self)
-
         # Set up the main game screen (display surface).
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
@@ -32,6 +31,8 @@ class WhiteWalkerInvasion:
         self.bg = pygame.transform.scale(self.bg,
              (self.settings.screen_width, self.settings.screen_height))
 
+        self.game_stats = GameStats(self)
+        self.HUD = HUD(self)
         self.running = True # variable to control the main game loop.
         self.clock = pygame.time.Clock() # Object to manage timing and frame rate.
 
@@ -99,7 +100,8 @@ class WhiteWalkerInvasion:
             self.impact_sound.play()
             self.impact_sound.fadeout(1250) 
             self.game_stats.update(collisions) # Update score and max score.
-        
+            self.HUD.update_scores()
+
         # Check if the entire White Walker army has been destroyed.
         if self.white_walker_army.check_destroyed_status():
             #resets and recreates the army
@@ -133,19 +135,12 @@ class WhiteWalkerInvasion:
     def restart_game(self):
         """Restart the game to its initial state."""
         
-        # set up dynamic settings
-        self.settings.initialize_dynamic_settings()
-
-        # restart game statistics
-        self.game_stats.reset_stats()
-        
-        # update scoreboard images (HUD)
-
-        # reset the level
-        self._reset_level()
-
-        # recenter the dragon
-        self.dragon._center_dragon()
+       
+        self.settings.initialize_dynamic_settings() # set up dynamic settings
+        self.game_stats.reset_stats() # restart game statistics
+        self.HUD.update_scores()# update scoreboard images (HUD)
+        self._reset_level() # reset the level
+        self.dragon._center_dragon() # recenter the dragon
         
         self.game_active = True
         pygame.mouse.set_visible(False) # Hide the mouse cursor.
@@ -156,8 +151,8 @@ class WhiteWalkerInvasion:
         self.screen.blit(self.bg, (0, 0)) # Draw the background image.
         self.dragon.draw() # Draw the dragon and its projectiles.
         self.white_walker_army.draw() # Draw all White Walkers.
-        # Draw the HUD (score, lives, level).
-        
+        self.HUD.draw() # Draw the HUD (score, lives, level).
+
         if not self.game_active:
             self.play_button.draw() # Draw the Play button if the game is inactive.
             pygame.mouse.set_visible(True) # Show the mouse cursor.
@@ -170,6 +165,7 @@ class WhiteWalkerInvasion:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False # Stop the main game loop.
+                self.game_stats.save_scores()
                 pygame.quit() # Uninitialize pygame modules.
                 sys.exit() # Exit the program.
             elif event.type == pygame.KEYDOWN and self.game_active == True:
@@ -184,7 +180,6 @@ class WhiteWalkerInvasion:
         if self.play_button.check_click(mouse_position):
             self.restart_game()
                     
-
 
     def _check_keyup_events(self, event):
         """Respond to key releases, stopping movement."""
@@ -211,6 +206,7 @@ class WhiteWalkerInvasion:
         elif event.key == pygame.K_q:
             # 'q' is a shortcut to quit the game.
             self.running = False
+            self.game_stats.save_scores()
             pygame.quit()
             sys.exit()
         
