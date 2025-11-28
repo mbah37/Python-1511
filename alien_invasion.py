@@ -112,6 +112,7 @@ class WhiteWalkerInvasion:
             self.game_stats.update_level()
             
             # update HUD view
+            self.HUD.update_level()
         
     def _check_game_status(self):
         """Handle the consequence of the dragon or army reaching a critical state."""
