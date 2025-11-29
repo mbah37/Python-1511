@@ -7,11 +7,33 @@ if TYPE_CHECKING:
     from white_walker_army import WhiteWalkerArmy
 
 class Walker(Sprite):
-    """A class to represent a single White Walker (enemy)."""
+    """A class to represent a single White Walker (enemy).
+
+    Each Walker is a sprite that belongs to a WhiteWalkerArmy. Walkers
+    are positioned in a grid and move vertically up and down according
+    to the army's direction, with occasional horizontal drops toward
+    the left side of the screen.
+
+    Attributes:
+        army (WhiteWalkerArmy): The army instance that owns this walker.
+        screen (pygame.Surface): The game's display surface.
+        boundaries (pygame.Rect): Rect representing the screen boundaries.
+        settings (Settings): Game settings for walker speed and sprite size.
+        image (pygame.Surface): Loaded and scaled walker sprite image.
+        rect (pygame.Rect): Rectangular area representing the walker's position.
+        x (float): Horizontal position stored as a float.
+        y (float): Vertical position stored as a float for smooth movement.
+    """
     
     def __init__(self, army: 'WhiteWalkerArmy', x: float, y: float):
+        """Initialize the walker and set its starting position.
+
+        Args:
+            army (WhiteWalkerArmy): The White Walker army that this walker belongs to.
+            x (float): Initial x-coordinate for the walker.
+            y (float): Initial y-coordinate for the walker.
+        """
         
-        """Initialize the walker and set its starting position."""
         super().__init__() # Initialize the Sprite parent class.
         self.army = army
         self.screen = army.game.screen
@@ -34,7 +56,12 @@ class Walker(Sprite):
         self.y = float(self.rect.y)
 
     def update(self):
-        """Move the walker vertically based on the army's direction."""
+        """Move the walker vertically based on the army's direction.
+
+        The walker's vertical position (y) is updated using the army's
+        `army_direction` and the configured `army_speed`. The rect is then
+        updated from the float coordinates.
+        """
         
         temp_speed = self.settings.army_speed
 
@@ -48,9 +75,21 @@ class Walker(Sprite):
         self.rect.x = self.x
 
     def check_edges(self):
-        """Return True if the walker has reached the top or bottom edge of the screen."""
+        """Check if the walker has reached the top or bottom edge.
+
+        This method checks whether the walker's rect has collided with
+        the top or bottom of the screen.
+
+        Returns:
+            bool: True if the walker is at or beyond the top or bottom edge,
+            False otherwise.
+        """
         return (self.rect.bottom >= self.boundaries.bottom or self.rect.top <= self.boundaries.top)
         
     def draw_walker(self):
-        """Draw the walker to the screen."""
+        """Draw the walker sprite to the screen.
+
+        This method blits the walker's image at its current rect on the
+        game's display surface.
+        """
         self.screen.blit(self.image, self.rect)

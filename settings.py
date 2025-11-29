@@ -9,7 +9,12 @@ class Settings:
     """
 
     def __init__(self):
-        """Initialize the game's static settings."""
+        """Initialize the game's static settings.
+
+        These settings are typically constant for the duration of the
+        application, such as screen size, asset paths, and base options
+        that do not change with difficulty or level.
+        """
         
         # --- Screen Settings ---
         self.name: str = 'White Walker Invasion' # Window title.
@@ -44,7 +49,7 @@ class Settings:
         self.walker_file: Path = Path.cwd() / 'Assets' / 'images' / 'WWenemy.png'
         
         self.walker_width: int = 100 # Width of a single white walker.
-        self.walker_height: int = 100 # Height of a single white walker.
+        self.walker_height: int = 70 # Height of a single white walker.
         
         # Number of rows in the initial army formation.
         self.army_rows : int = 3 
@@ -60,7 +65,7 @@ class Settings:
         self.button_height : int = 50 
         
         # Color settings.
-        self.button_color : tuple = (0, 0, 0) # Color of the play button (RGB).
+        self.button_color : tuple = (3, 202, 252) # Color of the play button (RGB).
         self.text_color : tuple = (255, 255, 255) # Color of the text (RGB).
         
         # Font settings.
@@ -71,14 +76,18 @@ class Settings:
         self.font_file : Path = Path.cwd() / 'Assets' / 'Fonts' / 'Silkscreen' / 'TrajanPro-Regular.ttf'
 
         # --- Sound Settings (Assumed file paths) ---
-        self.element_sound: Path = Path.cwd() / 'Assets' / 'Sounds' / 'roar.wav' 
-        self.impact_sound: Path = Path.cwd() / 'Assets' / 'Sounds' / 'WWdies.wav' 
+        # Sound played when the dragon fires an element.
+        self.element_sound: Path = Path.cwd() / 'Assets' / 'Sound' / 'roar.wav' 
+        # Sound played when a White Walker dies.
+        self.impact_sound: Path = Path.cwd() / 'Assets' / 'Sound' / 'WWdies.wav' 
 
     def initialize_dynamic_settings(self):
         """
-        Initialize settings that change throughout the game, 
-        such as speed and starting lives.
-        These are reset when a new game starts.
+        Initialize settings that change throughout the game.
+
+        Dynamic settings include speeds, projectile limits, and scores that
+        are reset when a new game starts. They are also increased over time
+        to make the game more challenging.
         """
        
         self.dragon_speed : float = 5.0 # Speed of the dragon.
@@ -98,10 +107,13 @@ class Settings:
         self.walker_points : int = 50 # Points awarded for defeating a white walker.
 
     
-    def increase_speed(self):
+    def increase_difficulty(self):
         """
-        Increase the speed of game elements and the point value of walkers 
-        to increase game difficulty.
+        Increase the speed of game elements and the point value of walkers.
+
+        This is typically called when the player clears a level. The speeds
+        are multiplied by `difficulty_scale`, and the walker point value is
+        increased and rounded to an integer.
         """
         # Increase speed settings by the difficulty scale multiplier.
         self.dragon_speed *= self.difficulty_scale
