@@ -10,10 +10,37 @@ from button import Button
 from hud import HUD
 
 class WhiteWalkerInvasion:
-    """Overall class to manage game assets and behavior."""
+    """Overall class to manage game assets and behavior.
+
+    This class sets up and runs the White Walker Invasion game. It handles
+    initialization of pygame, game settings, sprites (dragon and army),
+    sounds, HUD, and the main loop that processes events, updates the game
+    state, and draws everything to the screen.
+    
+    Attributes:
+        settings (Settings): Game configuration object with all settings.
+        screen (pygame.Surface): Main display surface for the game.
+        bg (pygame.Surface): Scaled background image surface.
+        game_stats (GameStats): Tracks score, level, lives, and high score.
+        HUD (HUD): Heads-up display for scores, level, and lives.
+        running (bool): Controls the overall game loop execution.
+        clock (pygame.time.Clock): Used to regulate the frame rate.
+        element_sound (pygame.mixer.Sound): Sound effect when the dragon shoots.
+        impact_sound (pygame.mixer.Sound): Sound effect when a White Walker is hit.
+        dragon (Dragon): Player-controlled dragon instance.
+        white_walker_army (WhiteWalkerArmy): Manager for all White Walker enemies.
+        play_button (Button): Button used to start or restart the game.
+        game_active (bool): Whether the game is currently active (playing) or not.
+    """
 
     def __init__(self):
-        """Initialize the game, and create game resources."""
+        """Initialize the game, and create game resources.
+
+        This method initializes pygame, loads settings, creates the main
+        display surface, loads the background image, sets up game statistics,
+        the HUD, clock, mixer, sounds, player dragon, enemy army, and the
+        Play button. It also sets the initial game state flags.
+        """
         
         pygame.init() # Initialize all imported pygame modules.
         
@@ -64,7 +91,14 @@ class WhiteWalkerInvasion:
         self.game_active = False 
     
     def run_game(self):
-        """Start the main loop for the game."""
+        """Start and manage the main loop for the game.
+
+        This loop runs while `self.running` is True. It repeatedly:
+        - Processes user input events.
+        - Updates the dragon, army, and collision logic when the game is active.
+        - Redraws the screen.
+        - Regulates the frame rate using the settings FPS value.
+        """
         
         while self.running:
             
@@ -79,7 +113,18 @@ class WhiteWalkerInvasion:
             self.clock.tick(self.settings.FPS) # Limit the frame rate to the defined FPS.
 
     def _check_collisions(self):
-        """Handle all collision checks and their consequences."""
+        """Handle all collision checks and their consequences.
+
+        This method checks:
+        - Collisions between the dragon and any White Walker, updating game
+          status and lives as needed.
+        - Whether any White Walker has reached the left edge, which triggers
+          a life loss or game over.
+        - Collisions between dragon projectiles and White Walkers, updating
+          score, playing sound effects, and updating the HUD.
+        - Whether the entire army has been destroyed, in which case a new
+          level starts and difficulty is increased.
+        """
         
         # Check for collision between the Dragon and any White Walker.
         if self.dragon.check_collision(self.white_walker_army.army):
@@ -115,7 +160,16 @@ class WhiteWalkerInvasion:
             self.HUD.update_level()
         
     def _check_game_status(self):
-        """Handle the consequence of the dragon or army reaching a critical state."""
+        """Handle the consequence of the dragon or army reaching a critical state.
+
+        If the dragon still has remaining lives, this method decrements the
+        lives counter, resets the level (army and projectiles), and briefly
+        pauses the game. If there are no lives left, it marks the game as
+        inactive, which stops updates and shows the Play button.
+
+        Returns:
+            None
+        """
         
         # If the dragon has lives remaining.
         if self.game_stats.dragons_left > 0:
@@ -127,14 +181,31 @@ class WhiteWalkerInvasion:
             self.game_active = False
 
     def _reset_level(self):
-        """Reset game elements (projectiles and army) for a new life or level."""
+        """Reset game elements (projectiles and army) for a new life or level.
+
+        This method:
+        - Clears all active dragon projectiles.
+        - Clears the existing White Walker army.
+        - Recreates a fresh army formation.
+
+        It is called when a life is lost or when the army is fully destroyed.
+        """
         
         self.dragon.arsenal.arsenal.empty() # Clear all existing projectiles.
         self.white_walker_army.army.empty() # Clear all existing White Walkers.
         self.white_walker_army.create_army() # Reset formation of White Walkers.
 
     def restart_game(self):
-        """Restart the game to its initial state."""
+        """Restart the game to its initial state.
+
+        This method:
+        - Reinitializes dynamic settings.
+        - Resets game statistics.
+        - Updates HUD score images.
+        - Resets the level (army and projectiles).
+        - Recenters the dragon.
+        - Hides the mouse cursor and marks the game as active.
+        """
         
        
         self.settings.initialize_dynamic_settings() # set up dynamic settings
@@ -147,7 +218,17 @@ class WhiteWalkerInvasion:
         pygame.mouse.set_visible(False) # Hide the mouse cursor.
 
     def _update_screen(self):
-        """Update images on the screen, and flip to the new screen."""
+        """Update images on the screen, and flip to the new screen.
+
+        Draws, in order:
+        - The background image.
+        - The dragon and its projectiles.
+        - All White Walkers.
+        - The HUD (score, lives, level).
+        - The Play button, if the game is inactive.
+
+        Finally, it flips the display to show the newly drawn frame.
+        """
         
         self.screen.blit(self.bg, (0, 0)) # Draw the background image.
         self.dragon.draw() # Draw the dragon and its projectiles.
@@ -161,7 +242,14 @@ class WhiteWalkerInvasion:
         pygame.display.flip() # Make the most recently drawn screen visible.
 
     def _check_events(self):
-        """Respond to keypresses and mouse/window events."""
+        """Respond to keypresses and mouse/window events.
+
+        This method polls pygame's event queue and:
+        - Handles window quit events by stopping the game and saving scores.
+        - Delegates keydown events to `_check_keydown_events` when the game is active.
+        - Delegates keyup events to `_check_keyup_events`.
+        - Handles mouse button clicks by checking if the Play button was pressed.
+        """
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -177,13 +265,32 @@ class WhiteWalkerInvasion:
                 self._check_button_clicked()
 
     def _check_button_clicked(self):
+        """Handle mouse click events for the Play button.
+
+        This method gets the current mouse position and checks whether the
+        Play button has been clicked. If so, it restarts the game.
+
+        Returns:
+            None
+        """
         mouse_position = pygame.mouse.get_pos() 
         if self.play_button.check_click(mouse_position):
             self.restart_game()
                     
 
     def _check_keyup_events(self, event):
-        """Respond to key releases, stopping movement."""
+        """Respond to key releases, stopping movement.
+
+        This method is called when a KEYUP event is detected. It checks for
+        arrow key releases and clears the corresponding movement flags on
+        the dragon.
+
+        Args:
+            event (pygame.event.Event): The pygame event representing the key release.
+
+        Returns:
+            None
+        """
         
         if event.key == pygame.K_UP:
             self.dragon.moving_up = False # Stop upward movement.
@@ -192,7 +299,21 @@ class WhiteWalkerInvasion:
         
 
     def _check_keydown_events(self, event):
-        """Respond to key presses, initiating movement or actions."""
+        """Respond to key presses, initiating movement or actions.
+
+        This method is called when a KEYDOWN event is detected and the game
+        is active. It:
+        - Starts upward or downward movement of the dragon when arrow keys
+          are pressed.
+        - Attempts to fire a projectile when the space bar is pressed.
+        - Quits the game when 'q' is pressed.
+
+        Args:
+            event (pygame.event.Event): The pygame event representing the key press.
+
+        Returns:
+            None
+        """
         
         if event.key == pygame.K_UP:
             self.dragon.moving_up = True # Start upward movement.
@@ -210,8 +331,6 @@ class WhiteWalkerInvasion:
             self.game_stats.save_scores()
             pygame.quit()
             sys.exit()
-        
-
 
 if __name__ == '__main__':
     # Create a game instance and run the game.

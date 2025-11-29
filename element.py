@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from alien_invasion import WhiteWalkerInvasion
 
 class Element(Sprite):
-    """A class to manage the elements fired by the dragon."""
+    """A class to manage the elements fired by the dragon.""" 
     
     def __init__(self, game: 'WhiteWalkerInvasion'):
         """Initialize the element attributes."""
